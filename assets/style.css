@@ -31,17 +31,17 @@ main .container {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: flex-start;
-	border: 1px solid black;
+	box-shadow: 0px 0px 5px 1px #ffffff;
 }
 
 .container .img-big {
 	width: 100%;
 	height: 80%;
-	border: 3px solid black;
+	border: 2px solid white;
 	position: relative;
 }
 
-.container .img-big .active {
+.container .img-big .big {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -59,7 +59,7 @@ main .container {
 }
 
 .container .thumbnails img {
-	border: 3px solid black;
+	border: 2px solid white;
 	width: 20%;
 	height: 100%;
 	aspect-ratio: 16 / 9;
@@ -109,4 +109,12 @@ main .container {
 	top: 50%;
 	right: 1rem;
 	transform: translateY(-50%);
+}
+
+.active {
+	filter: brightness(100%);
+}
+
+.inactive {
+	filter: brightness(30%);
 }

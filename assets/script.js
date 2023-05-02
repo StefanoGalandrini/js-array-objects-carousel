@@ -1,3 +1,5 @@
+// declare initial array with objects containing images, title and description
+
 const images = [
 	{
 		image: "img/01.webp",
@@ -25,3 +27,71 @@ const images = [
 		text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
 	},
 ];
+
+// declare global DOM variables
+const bigImgContainer = document.querySelector(".img-big");
+const thumbnails = document.querySelectorAll(".thumb-img");
+const leftBtn = document.querySelector(".btn-left");
+const rightBtn = document.querySelector(".btn-right");
+
+let currentImgIndex = 0;
+updateBigImg();
+updateActiveThumbnail();
+
+function updateBigImg() {
+	const img = document.createElement("img");
+	img.src = "../" + images[currentImgIndex].image;
+	img.classList.add("big");
+
+	const title = document.createElement("h1");
+	title.textContent = images[currentImgIndex].title;
+
+	const text = document.createElement("p");
+	text.textContent = images[currentImgIndex].text;
+
+	const titleDiv = document.createElement("div");
+	titleDiv.classList.add("title");
+	titleDiv.appendChild(title);
+	titleDiv.appendChild(text);
+
+	bigImgContainer.innerHTML = "";
+	bigImgContainer.appendChild(img);
+	bigImgContainer.appendChild(titleDiv);
+}
+
+function updateActiveThumbnail() {
+	for (i = 0; i < images.length; i++) {
+		thumbnails[i].className = "inactive";
+	}
+	thumbnails[currentImgIndex].classList.toggle("active");
+	thumbnails[currentImgIndex].classList.remove("inactive");
+}
+
+function nextImg() {
+	currentImgIndex++;
+	if (currentImgIndex >= thumbnails.length) {
+		currentImgIndex = 0;
+	}
+	updateBigImg();
+	updateActiveThumbnail();
+}
+
+function prevImg() {
+	currentImgIndex--;
+	if (currentImgIndex < 0) {
+		currentImgIndex = thumbnails.length - 1;
+	}
+	updateBigImg();
+	updateActiveThumbnail();
+}
+
+leftBtn.addEventListener("click", prevImg);
+rightBtn.addEventListener("click", nextImg);
+
+thumbnails.forEach((thumb, index) => {
+	thumb.addEventListener("click", () => {
+		currentImgIndex = index;
+		updateBigImg();
+		updateActiveThumbnail();
+	});
+});
